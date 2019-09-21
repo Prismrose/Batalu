@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Batalu!</title>
+	</head>
+	<body>
+		<h1>Game</h1>
+		<div id="gameport"></div>
+
+		<h1>Instructions</h1>
+		<p>Press 'S' to punch, and 'Shift' to crouch!</p>
+
+		<h1>Disqus</h1>
+		<div id="disqus_thread"></div>
+
+		<script>
+			(function() {
+			var d = document, s = d.createElement('script');
+			s.src = 'https://nau-cs413.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+			})();
+		</script>
+		<script src="pixi.js"></script>
+		<script type="module" src="player.js"></script>
+		<script type="module" src="game.js"></script>
+	</body>
+</html>
