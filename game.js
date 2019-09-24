@@ -212,10 +212,10 @@ wait_timer1 = PIXI.timerManager.createTimer(1000);
 game_timer01 = PIXI.timerManager.createTimer(4000);
 punch_timer = PIXI.timerManager.createTimer(200);
 crouch_timer = PIXI.timerManager.createTimer(400);
-crouch_cd = PIXI.timerManager.createTimer(1000);
+crouch_cd = PIXI.timerManager.createTimer(800);
 
 //Music timer
-music_shift = PIXI.timerManager.createTimer(1000);
+music_shift = PIXI.timerManager.createTimer(500);
 music_shift.on('start', function(elapsed) {
 		console.log('music timer!')
 	});
@@ -273,6 +273,7 @@ function keydownEventHandler(e)
 		crouch_timer.reset();
 	});
 
+	const e_temp = enemy.get_hp();
 
 	if (e.keyCode == 83 && !punch_timer.isStarted) // S key
 	{
@@ -284,7 +285,7 @@ function keydownEventHandler(e)
 			wait_timer1.reset();
 			wait_timer1.start();
 			enemy.crouch(enemy_crouch);
-			enemy.set_hp(enemy.get_hp() + 1);
+			enemy.set_hp(e_temp);
 			punch_timer.start();
 		}
 		else if (enemy.get_hp() != 0)
@@ -353,7 +354,7 @@ function enemys_punch(enemy, player)
 		}
 	});
 
-	timer01.repeat = 4;
+	timer01.repeat = 5;
 	timer01.on('start', function(elapsed){console.log('start')});
 	timer01.on('end', function(elapsed) {
 		timer.start();
