@@ -84,6 +84,8 @@ background.position.x = 399;
 background.position.y = 200;
 stage.addChild(background);
 
+
+
 //Textures, player & enemy
 var player_idle = PIXI.Texture.from("images/player_idle.png");
 var player_punch = PIXI.Texture.from("images/player_punch.png");
@@ -141,7 +143,6 @@ enemy_health.x = 435;
 enemy_health.y = 125;
 stage.addChild(enemy_health);
 
-
 //Animate dat shiz
 function animate()
 {
@@ -187,7 +188,7 @@ function animate()
 		enemy.sprite.position.x += 10;
 		enemy.sprite.position.y -= 10;
 		enemy.sprite.rotation += 0.1;
-		enemy_health.text = enemy.get_hp();
+		enemy_health.text = 'Winner!';
 	}
 	else
 	{
@@ -212,6 +213,23 @@ game_timer01 = PIXI.timerManager.createTimer(4000);
 punch_timer = PIXI.timerManager.createTimer(200);
 crouch_timer = PIXI.timerManager.createTimer(400);
 crouch_cd = PIXI.timerManager.createTimer(1000);
+
+//Music timer
+music_shift = PIXI.timerManager.createTimer(1000);
+music_shift.on('start', function(elapsed) {
+		console.log('music timer!')
+	});
+music_shift.on('end', function(elapsed) {
+		console.log('next song!');
+		theme_2.play();
+	});
+//Game music
+const theme_1 = PIXI.sound.Sound.from('audio/Preta_batalu_1.wav');
+const theme_2 = PIXI.sound.Sound.from('audio/Preta_batalu_2.wav');
+theme_1.loop = true;
+theme_2.loop = true;
+theme_1.play();
+
 
 //Boolean for key repetition
 var keyStayedPressed = true;
@@ -275,6 +293,11 @@ function keydownEventHandler(e)
 			punch_timer.start();
 			hit_marker.texture = ouch;
 			enemy_health.text = enemy.get_hp();
+			if (enemy.get_hp() <= 7)
+			{
+				theme_1.stop();
+				music_shift.start();
+			}
 		}
 		else
 		{
